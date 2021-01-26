@@ -1,10 +1,38 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    text-transform: uppercase;
-    background-color: rgba(0, 255, 255, 0.5);
+* {
+    box-sizing: border-box;
+}
+html, body {
     margin: 0;
-    padding: 0;
+}
+body {
+    font-family: sans-serif;
+    background-color: #c7c739;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    margin: 350px auto 0;
+    width: 30%;
+    height: 600px;
+    background-color: #f5f0f0;
+    overflow: hidden;
+}
+.wrapper {
+    margin-top: 30px;
+}
+
+.header {
+
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+button {
+    border-radius: 50%;
 }
 
 

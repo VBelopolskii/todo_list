@@ -1,10 +1,40 @@
-body {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
-    text-transform: uppercase;
-    background-color: rgba(0, 255, 255, 0.5);
+* {
+    box-sizing: border-box;
+}
+html, body {
     margin: 0;
-    padding: 0;
+}
+body {
+    font-family: sans-serif;
+    background-color: black;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-content: space-around;
+    margin: 350px auto 0;
+    width: 320px;
+    height: 660px;
+    background-color: #d2cbb5;
+    overflow: hidden;
+    border-radius: 3%;
+}
+.wrapper {
+    margin-top: 30px;
+}
+
+.main {
+    padding: 30px;
+}
+
+.footer {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+button {
+    border-radius: 50%;
 }
 
 

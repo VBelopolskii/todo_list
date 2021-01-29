@@ -3,38 +3,42 @@
 }
 html, body {
     margin: 0;
+    padding: 0;
 }
-body {
-    font-family: sans-serif;
-    background-color: black;
+.app {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #c7b4b4;
+    height: 100vh;
 }
-.container {
+.main {
+    height: 50%;
+    min-height: 400px;
+    width: 300px;
+    min-width: 150px;
+    background-color: #ffffff;
+    border: black 2px;
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
-    align-content: space-around;
-    margin: 350px auto 0;
-    width: 320px;
-    height: 660px;
-    background-color: #d2cbb5;
-    overflow: hidden;
-    border-radius: 3%;
+    justify-content: space-between;
 }
-.wrapper {
-    margin-top: 30px;
-}
-
-.main {
-    padding: 30px;
-}
-
-.footer {
+.header__nav {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+}
+.content {
+    display: flex;
+    flex-direction: column;
+}
+.content__header {
+    display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
 }
-
-button {
-    border-radius: 50%;
+.footer form {
+    display: flex;
+    justify-content: space-between;
 }
-
-

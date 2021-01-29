@@ -4,47 +4,47 @@
     <meta charset="UTF-8">
     <title>ToDo List</title>
     <link rel="stylesheet" href="css/styles.css">
+    <script src="https://use.fontawesome.com/5af50cf587.js"></script>
 </head>
 <body>
-    <div class="container">
-        <div class="wrapper">
-            <nav class="nav">
-                <a href="" class="nav-item"></a>
-                <a href="" class="nav-item"></a>
-            </nav>
-        </div>
-        <div class="wrapper">
+    <div class="app">
+        <div class="main">
             <div class="header">
-                <img src="./img/avatar.png" alt="avatar">
-                <h2>number of tasks</h2>
-                <h2>name of the board</h2>
+                <nav class="header__nav">
+                    <button type="button"><i class="fas fa-arrow-left"></i></button>
+                    <button type="button"><i class="fas fa-ellipsis-v"></i></button>
+                </nav>
             </div>
-        </div>
-        <div class="wrapper">
-            <div class="main">
-                <list>
-                    <li><input type="checkbox" id="todo1"><label for="todo1">todo item1</label></li>
-                    <li><input type="checkbox" id="todo2"><label for="todo2">todo item2</label></li>
-                    <li><input type="checkbox" id="todo3"><label for="todo3">todo item3</label></li>
-                    <li><input type="checkbox" id="todo4"><label for="todo4">todo item4</label></li>
-                    <li><input type="checkbox" id="todo5"><label for="todo5">todo item5</label></li>
-                    <li><input type="checkbox" id="todo6"><label for="todo6">todo item6</label></li>
-                    <li><input type="checkbox" id="todo7"><label for="todo7">todo item7</label></li>
-                    <li><input type="checkbox" id="todo8"><label for="todo8">todo item8</label></li>
-                </list>
-            </div>
-        </div>
-        <div class="wrapper">
-            <div class="footer">
-                <label>
-                    <input type="text">
-                </label>
-                <div>
-                    <button type="submit">+</button>
+            <div class="content">
+                <div class="content__header">
+                    <img class="content__header-avatar" src="./img/avatar.png" alt="avatar">
+                    <div class="content__header-info info">
+                        <h2 class="content__header-info_text task-count">8 tasks</h2>
+                        <h2 class="content__header-info_text board-name">Personal</h2>
+                    </div>
                 </div>
+                <div class="content__main">
+                    <ul>
+                        <li><input type="checkbox" id="todo1"><label for="todo1">todo item1</label></li>
+                        <li><input type="checkbox" id="todo2"><label for="todo2">todo item2</label></li>
+                        <li><input type="checkbox" id="todo3"><label for="todo3">todo item3</label></li>
+                        <li><input type="checkbox" id="todo4"><label for="todo4">todo item4</label></li>
+                        <li><input type="checkbox" id="todo5"><label for="todo5">todo item5</label></li>
+                        <li><input type="checkbox" id="todo6"><label for="todo6">todo item6</label></li>
+                        <li><input type="checkbox" id="todo7"><label for="todo7">todo item7</label></li>
+                        <li><input type="checkbox" id="todo8"><label for="todo8">todo item8</label></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer">
+                    <form>
+                        <label for="footer__new-task">
+                            <input id="footer__new-task" type="text">
+                        </label>
+                        <button type="submit">+</button>
+                    </form>
             </div>
         </div>
     </div>
 </body>
-<script src="scripts/app.js"></script>
 </html>

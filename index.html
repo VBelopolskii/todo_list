@@ -11,20 +11,21 @@
         <div class="main">
             <div class="header">
                 <nav class="header__nav">
-                    <button type="button"><i class="fas fa-arrow-left"></i></button>
-                    <button type="button"><i class="fas fa-ellipsis-v"></i></button>
+                    <button class="header__nav-button" type="button"><i class="fas fa-arrow-left"></i></button>
+                    <button class="header__nav-button" type="button"><i class="fas fa-ellipsis-v"></i></button>
                 </nav>
+                <div class="header__circle"></div>
             </div>
             <div class="content">
                 <div class="content__header">
                     <img class="content__header-avatar" src="./img/avatar.png" alt="avatar">
                     <div class="content__header-info info">
-                        <h2 class="content__header-info_text task-count">8 tasks</h2>
-                        <h2 class="content__header-info_text board-name">Personal</h2>
+                        <div class="content__header-info-text task-count">8 tasks</div>
+                        <div class="content__header-info-text board-name">Personal</div>
                     </div>
                 </div>
                 <div class="content__main">
-                    <ul>
+                    <ul class="content__main-list">
                         <li><input type="checkbox" id="todo1"><label for="todo1">todo item1</label></li>
                         <li><input type="checkbox" id="todo2"><label for="todo2">todo item2</label></li>
                         <li><input type="checkbox" id="todo3"><label for="todo3">todo item3</label></li>
@@ -33,15 +34,20 @@
                         <li><input type="checkbox" id="todo6"><label for="todo6">todo item6</label></li>
                         <li><input type="checkbox" id="todo7"><label for="todo7">todo item7</label></li>
                         <li><input type="checkbox" id="todo8"><label for="todo8">todo item8</label></li>
+                        <li><input type="checkbox" id="todo9"><label for="todo9">todo item9</label></li>
+                        <li><input type="checkbox" id="todo10"><label for="todo10">todo item10</label></li>
+                        <li><input type="checkbox" id="todo11"><label for="todo11">todo item11</label></li>
+                        <li><input type="checkbox" id="todo12"><label for="todo12">todo item12</label></li>
+                        <li><input type="checkbox" id="todo13"><label for="todo13">todo item13</label></li>
                     </ul>
                 </div>
             </div>
             <div class="footer">
-                    <form>
+                    <form class="footer__form">
                         <label for="footer__new-task">
                             <input id="footer__new-task" type="text">
                         </label>
-                        <button type="submit">+</button>
+                        <button class="footer__button" type="submit">+</button>
                     </form>
             </div>
         </div>

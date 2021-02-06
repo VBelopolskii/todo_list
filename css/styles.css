@@ -5,29 +5,70 @@ html, body {
     margin: 0;
     padding: 0;
 }
+button {
+    border: none;
+    background: transparent;
+}
+button:focus button:hover {
+    outline: none;
+}
+ul {
+    list-style: none;
+    padding-inline-start: unset;
+}
+
 .app {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #c7b4b4;
+    background: linear-gradient(180deg, rgba(254,250,238,1) 50%, rgba(250,224,111,1) 50%);
     height: 100vh;
 }
 .main {
     height: 50%;
     min-height: 400px;
-    width: 300px;
+    width: 50%;
     min-width: 150px;
+    max-width: 300px;
     background-color: #ffffff;
-    border: black 2px;
-    border-radius: 10px;
+    border: 5px solid black;
+    border-radius: 15px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    overflow: hidden;
+    position: relative;
+}
+.header {
+    margin-bottom: 30px;
 }
 .header__nav {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    background-color: orange;
+    height: 50px;
 }
+.header__circle {
+    position: absolute;
+    height: 450px;
+    width: 500px;
+    border-radius: 50%;
+    background-color: rgb(249,234,133);
+    top: -350px;
+    left: -105px;
+
+    z-index: 0;
+}
+.header__nav-button {
+    position: relative;
+    height: 100%;
+    width: 50px;
+    border: 1px solid black;
+    z-index: 1;
+}
+
 .content {
     display: flex;
     flex-direction: column;
@@ -36,9 +77,38 @@ html, body {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: space-around;
+    justify-content: left;
 }
-.footer form {
+.content__header-info {
+    display: flex;
+    flex-direction: column;
+}
+.board-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+.content__main {
+    height: 350px;
+}
+.content__main-list {
+    overflow: scroll;
+    height: 100%;
+}
+
+.footer__form {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+}
+#footer__new-task {
+    height: 20px;
+}
+.footer__button {
+    background-color: rgb(15,214,183);
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    font-size: 24px;
+    color: white;
+    box-shadow: 2px 6px 6px -3px bisque;
 }

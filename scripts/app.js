@@ -1,5 +1,5 @@
 import {TASKS} from "./tasks.js"
-
+// test for git
 const tasksList = document.querySelector('.content__main-list');
 const countElement = document.querySelector('.task-count');
 

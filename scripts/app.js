@@ -1,6 +1,7 @@
-import {TASKS} from "./tasks.js";
+import {TASKS} from "./tasks.js"
 
 const tasksList = document.querySelector('.content__main-list');
+const countElement = document.querySelector('.task-count');
 
 function generateTemplate(task) {
     const taskListEl = document.createElement('li');
@@ -14,10 +15,20 @@ function generateTemplate(task) {
     taskInput.className = task.isChecked ? 'done' : 'undone';
 }
 
+function hideCheckedTask() {
+}
+
+function showCounter(number) {
+    return countElement.innerText = number;
+}
+
 function init(list) {
+    let tasksNumber = 0
     list.forEach(task => {
         generateTemplate(task);
-    })
+        tasksNumber++;
+    });
+    showCounter(tasksNumber);
 }
 
 init(TASKS);

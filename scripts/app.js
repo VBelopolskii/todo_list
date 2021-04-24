@@ -1,7 +1,8 @@
 import {TASKS} from "./tasks.js"
-
 const tasksList = document.querySelector('.content__main-list');
-const countElement = document.querySelector('.task-count');
+const counterElement = document.querySelector('.task-count');
+const inputNewTask = document.getElementById("footer__new-task");
+const addNewTaskBtn = document.querySelector(".footer__button");
 
 function generateTemplate(task) {
     const taskListEl = document.createElement('li');
@@ -15,20 +16,20 @@ function generateTemplate(task) {
     taskInput.className = task.isChecked ? 'done' : 'undone';
 }
 
-function hideCheckedTask() {
+function setTasksCounter() {
+    const tasksCount = TASKS.length;
+    counterElement.innerText = tasksCount;
 }
 
-function showCounter(number) {
-    return countElement.innerText = number;
-}
-
-function init(list) {
-    let tasksNumber = 0
-    list.forEach(task => {
+function renderTasks() {
+    TASKS.forEach(task => {
         generateTemplate(task);
-        tasksNumber++;
     });
-    showCounter(tasksNumber);
+    setTasksCounter();
 }
 
-init(TASKS);
+function init() {
+    renderTasks();
+}
+
+init();

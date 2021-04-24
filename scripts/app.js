@@ -4,6 +4,7 @@ const tasksList = document.querySelector('.content__main-list');
 const counterElement = document.querySelector('.task-count');
 const inputNewTask = document.getElementById("footer__new-task");
 const addNewTaskBtn = document.querySelector(".footer__button");
+const addNewTaskForm = document.querySelector(".footer__form");
 
 function generateTemplate(task) {
     const taskListEl = document.createElement('li');
@@ -28,22 +29,39 @@ function renderTasks() {
     setTasksCounter();
 }
 
-//-----------------------------------------------
+function renderNewTask() {
+    const newTask = TASKS[TASKS.length - 1];
+    generateTemplate(newTask);
+    setTasksCounter();
+}
 
-function addNewTask() {
-    TASKS.push(
-        {
-            id: TASKS.length,
-            name: inputNewTask.value,
-            isChecked: false
-        });
+function addNewTask(evt) {
+
+    if (inputNewTask.value === '') {
+        evt.preventDefault();
+        alert("Type at least one symbol in the input field");
+    } else {
+
+        TASKS.push(
+            {
+                id: TASKS.length,
+                name: inputNewTask.value,
+                isChecked: false
+            });
+
+        renderNewTask();
+        evt.preventDefault();
+
+        clearInputField();
+    }
+}
+
+function clearInputField() {
+    inputNewTask.value = "";
 }
 
 
-addNewTaskBtn.addEventListener("submit", addNewTask);
-
-
-//----------------------------------------------
+addNewTaskForm.addEventListener("submit", addNewTask);
 
 function init() {
     renderTasks();

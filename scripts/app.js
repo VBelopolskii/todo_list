@@ -6,18 +6,21 @@ const inputNewTask = document.getElementById("footer__new-task");
 const addNewTaskBtn = document.querySelector(".footer__button");
 const addNewTaskForm = document.querySelector(".footer__form");
 
+const TASK_CSS_CLASS = {
+    CHECKED: 'checked',
+    UNCHECKED: 'unchecked'
+}
+
 function generateTemplate(task) {
     const taskListEl = document.createElement('li');
     const taskInput = document.createElement('input');
     const taskLabel = document.createElement('label');
-    const checkedTaskClass = 'done';
-    const uncheckedTaskClass = 'undone';
     taskListEl.innerText = task.name;
     taskListEl.prepend(taskInput);
     taskListEl.append(taskLabel);
     tasksList.append(taskListEl);
     taskInput.type = 'checkbox';
-    taskInput.className = task.isChecked ? checkedTaskClass : uncheckedTaskClass;
+    taskListEl.className = task.isChecked ? TASK_CSS_CLASS.CHECKED : TASK_CSS_CLASS.UNCHECKED;
 }
 
 function setTasksCounter() {

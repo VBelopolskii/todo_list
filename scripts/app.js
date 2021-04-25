@@ -10,12 +10,14 @@ function generateTemplate(task) {
     const taskListEl = document.createElement('li');
     const taskInput = document.createElement('input');
     const taskLabel = document.createElement('label');
+    const checkedTaskClass = 'done';
+    const uncheckedTaskClass = 'undone';
     taskListEl.innerText = task.name;
     taskListEl.prepend(taskInput);
     taskListEl.append(taskLabel);
     tasksList.append(taskListEl);
     taskInput.type = 'checkbox';
-    taskInput.className = task.isChecked ? 'done' : 'undone';
+    taskInput.className = task.isChecked ? checkedTaskClass : uncheckedTaskClass;
 }
 
 function setTasksCounter() {
@@ -36,24 +38,23 @@ function renderNewTask() {
 }
 
 function addNewTask(evt) {
+    evt.preventDefault();
 
-    if (inputNewTask.value === '') {
-        evt.preventDefault();
+    if (!inputNewTask.value.trim()) {
         alert("Type at least one symbol in the input field");
-    } else {
-
-        TASKS.push(
-            {
-                id: TASKS.length,
-                name: inputNewTask.value,
-                isChecked: false
-            });
-
-        renderNewTask();
-        evt.preventDefault();
-
-        clearInputField();
+        return;
     }
+
+    TASKS.push(
+        {
+            id: TASKS.length,
+            name: inputNewTask.value.trim(),
+            isChecked: false
+        });
+
+    renderNewTask();
+    clearInputField();
+
 }
 
 function clearInputField() {

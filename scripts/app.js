@@ -10,8 +10,9 @@ const TASK_CSS_CLASS = {
     CHECKED: 'checked'
 }
 
+
 // TODO Storage не захотел работать с экспортируемым массивом
-let todoList = [];
+let todoList = TASKS;
 
 function init() {
     if (localStorage.getItem("todo")) {
@@ -20,8 +21,9 @@ function init() {
     renderTasks();
 }
 
-
+// MVP --- VIEW
 function generateTemplate(task) {
+    //
     const taskListEl = document.createElement('li');
     const taskInput = document.createElement('input');
     const taskLabel = document.createElement('label');
@@ -30,20 +32,25 @@ function generateTemplate(task) {
     taskListEl.append(taskLabel);
     tasksList.append(taskListEl);
     taskInput.type = 'checkbox';
+    taskInput.checked = task.isChecked;
     if (task.isChecked) {
         taskInput.className = taskListEl.className = TASK_CSS_CLASS.CHECKED;
         taskInput.className = taskListEl.className;
     }
     taskListEl.id = task.id;
+    // Тут генерировать шаблон и его возвращать
 }
 
 function renderTasks() {
     todoList.forEach(task => {
+        // Тут ловить сгенерированный шаблон и аппендить
         generateTemplate(task);
-        if (task.isChecked) {
-            putTick(task.id);
-        }
+
+        // if (task.isChecked) {
+        //     putTick(task.id);
+        // }
     });
+    // ...
     setTasksCounter();
 }
 
@@ -77,8 +84,6 @@ function addNewTask(evt) {
             isChecked: false
         });
 
-    localStorage.setItem("todo", JSON.stringify(todoList));
-
     renderNewTask();
     clearInput();
 
@@ -98,23 +103,25 @@ addNewTaskForm.addEventListener("submit", addNewTask);
 //     task.addEventListener("click", selectTask)
 // })
 
+// MVC - CONTROLLER
 function selectTask(event) {
+    // Is task finished <=> (task.isChecked != task.isChecked);
     const task = event.target;
+    // По id найти task, изменить isChecked, запустить ререндер шаблона.
 
-    if (task.tagName === "LI") {
-        if (task.classList.contains(TASK_CSS_CLASS.CHECKED)) {
-            task.classList.remove(TASK_CSS_CLASS.CHECKED);
-        } else {
-            task.classList.add(TASK_CSS_CLASS.CHECKED);
-        }
-        putTick(task.id);
-        todoList[task.id].isChecked = !todoList[task.id].isChecked;
-        changeCheckboxProp(task);
-    }
+    // if (task.tagName === "LI") {
+    //     if (task.classList.contains(TASK_CSS_CLASS.CHECKED)) {
+    //         task.classList.remove(TASK_CSS_CLASS.CHECKED);
+    //     } else {
+    //         task.classList.add(TASK_CSS_CLASS.CHECKED);
+    //     }
+    //     putTick(task.id);
+    //     todoList[task.id].isChecked = !todoList[task.id].isChecked;
+    //     changeCheckboxProp(task);
+    // }
 }
 
 tasksList.addEventListener("click", selectTask);
-
 
 
 
@@ -126,14 +133,14 @@ tasksList.addEventListener("click", selectTask);
 function changeCheckboxProp(task) {
 
     const checkbox = document.querySelector(`li[id="${task.id}"] input`);
-
-    checkbox.checked = (task.isChecked === TASK_CSS_CLASS.CHECKED);
+    checkbox.checked = task.isChecked;
 }
 
 
 
 //--------------------------------------------
 
-
-
 init();
+
+// Получить данные => Отрендерить данные по состоянию => слушать изменения
+// Произошло изменение => обновили модель => перерендерили с новым состоянием

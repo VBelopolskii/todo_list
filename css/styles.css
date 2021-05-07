@@ -109,11 +109,10 @@ i.fas {
     font-weight: bold;
 }
 .content__main {
-    overflow: scroll;
+    overflow: auto;
 }
 .content__main-list {
-    overflow: scroll;
-    height: 100%;
+    overflow: auto;
 }
 
 .checked {

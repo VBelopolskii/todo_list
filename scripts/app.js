@@ -7,9 +7,19 @@ const inputNewTask = document.getElementById("footer__new-task");
 const addNewTaskForm = document.querySelector(".footer__form");
 
 const TASK_CSS_CLASS = {
-    CHECKED: 'checked',
-    UNCHECKED: 'unchecked'
+    CHECKED: 'checked'
 }
+
+// TODO Storage не захотел работать с экспортируемым массивом
+let todoList = [];
+
+function init() {
+    if (localStorage.getItem("todo")) {
+        todoList = JSON.parse(localStorage.getItem("todo"));
+    }
+    renderTasks();
+}
+
 
 function generateTemplate(task) {
     const taskListEl = document.createElement('li');
@@ -20,31 +30,38 @@ function generateTemplate(task) {
     taskListEl.append(taskLabel);
     tasksList.append(taskListEl);
     taskInput.type = 'checkbox';
-    taskListEl.className = task.isChecked ? TASK_CSS_CLASS.CHECKED : TASK_CSS_CLASS.UNCHECKED;
+    if (task.isChecked) {
+        taskInput.className = taskListEl.className = TASK_CSS_CLASS.CHECKED;
+        taskInput.className = taskListEl.className;
+    }
     taskListEl.id = task.id;
-    taskInput.className = taskListEl.className;
 }
 
 function renderTasks() {
-    TASKS.forEach(task => {
+    todoList.forEach(task => {
         generateTemplate(task);
         if (task.isChecked) {
-            putTick(task);
+            putTick(task.id);
         }
     });
     setTasksCounter();
 }
 
+function putTick(taskId) {
+    const checkbox = document.querySelector(`li[id="${taskId}"] input`);
+    checkbox.checked = !checkbox.checked;
+}
+
 function setTasksCounter() {
-    counterElement.innerText = TASKS.length;
+    counterElement.innerText = todoList.length;
 }
 
 function renderNewTask() {
-    const newTask = TASKS[TASKS.length - 1];
+    const newTask = todoList[todoList.length -1];
     generateTemplate(newTask);
     setTasksCounter();
 }
-
+//
 function addNewTask(evt) {
     evt.preventDefault();
 
@@ -53,12 +70,14 @@ function addNewTask(evt) {
         return;
     }
 
-    TASKS.push(
+    todoList.push(
         {
-            id: TASKS.length + 1,
+            id: todoList.length,
             name: inputNewTask.value.trim(),
             isChecked: false
         });
+
+    localStorage.setItem("todo", JSON.stringify(todoList));
 
     renderNewTask();
     clearInput();
@@ -73,7 +92,6 @@ function clearInput() {
 addNewTaskForm.addEventListener("submit", addNewTask);
 
 
-
 // tasks.addEventListener("click", task => {selectTask(task)});
 
 // tasks.forEach(function(task) {
@@ -82,44 +100,40 @@ addNewTaskForm.addEventListener("submit", addNewTask);
 
 function selectTask(event) {
     const task = event.target;
-    if(task.tagName === "LI") {
+
+    if (task.tagName === "LI") {
         if (task.classList.contains(TASK_CSS_CLASS.CHECKED)) {
             task.classList.remove(TASK_CSS_CLASS.CHECKED);
-            task.classList.add(TASK_CSS_CLASS.UNCHECKED);
         } else {
-            task.classList.remove(TASK_CSS_CLASS.UNCHECKED);
             task.classList.add(TASK_CSS_CLASS.CHECKED);
         }
-        putTick(task);
-        console.log(TASKS[task.id - 1]);
+        putTick(task.id);
+        todoList[task.id].isChecked = !todoList[task.id].isChecked;
+        changeCheckboxProp(task);
     }
-};
+}
 
 tasksList.addEventListener("click", selectTask);
 
 
+
+
 //------------------------------------------
-function isCheckboxChecked(taskEl) {
-    return document.querySelector(`li[id="${taskEl.id}"] input`).checked;
+// function isCheckboxChecked(task) {
+//     return document.querySelector(`li[id="${task.id}"] input`).checked;
+// }
+
+function changeCheckboxProp(task) {
+
+    const checkbox = document.querySelector(`li[id="${task.id}"] input`);
+
+    checkbox.checked = (task.isChecked === TASK_CSS_CLASS.CHECKED);
 }
 
-function changeCheckboxProp(task, taskEl) {
-    if (task.isChecked === TASK_CSS_CLASS.CHECKED) {
-        taskEl.querySelector("input").checked = true;
-    } else {
-        taskEl.querySelector("input").checked = false;
-    }
-}
-
-function putTick(task) {
-    document.querySelector(`li[id="${task.id}"] input`).click();
-}
 
 
 //--------------------------------------------
 
-function init() {
-    renderTasks();
-}
+
 
 init();

@@ -12,7 +12,7 @@ const TASK_CSS_CLASS = {
 
 
 // TODO Storage не захотел работать с экспортируемым массивом
-let todoList = TASKS;
+let todoList = [];
 
 function init() {
     if (localStorage.getItem("todo")) {
@@ -23,40 +23,38 @@ function init() {
 
 // MVP --- VIEW
 function generateTemplate(task) {
-    //
     const taskListEl = document.createElement('li');
     const taskInput = document.createElement('input');
     const taskLabel = document.createElement('label');
     taskListEl.innerText = task.name;
     taskListEl.prepend(taskInput);
     taskListEl.append(taskLabel);
-    tasksList.append(taskListEl);
     taskInput.type = 'checkbox';
+
     taskInput.checked = task.isChecked;
     if (task.isChecked) {
-        taskInput.className = taskListEl.className = TASK_CSS_CLASS.CHECKED;
+        taskListEl.className = TASK_CSS_CLASS.CHECKED;
         taskInput.className = taskListEl.className;
     }
+
     taskListEl.id = task.id;
+    taskInput.id = taskListEl.id;
+
     // Тут генерировать шаблон и его возвращать
+    return taskListEl;
 }
 
 function renderTasks() {
     todoList.forEach(task => {
-        // Тут ловить сгенерированный шаблон и аппендить
-        generateTemplate(task);
-
-        // if (task.isChecked) {
-        //     putTick(task.id);
-        // }
+        tasksList.append(generateTemplate(task));
     });
     // ...
     setTasksCounter();
 }
 
-function putTick(taskId) {
-    const checkbox = document.querySelector(`li[id="${taskId}"] input`);
-    checkbox.checked = !checkbox.checked;
+function rerenderTask(task) {
+    tasksList.append(generateTemplate(task));
+    setTasksCounter();
 }
 
 function setTasksCounter() {
@@ -64,10 +62,12 @@ function setTasksCounter() {
 }
 
 function renderNewTask() {
-    const newTask = todoList[todoList.length -1];
-    generateTemplate(newTask);
+    const newTask = todoList[todoList.length - 1];
+    let taskTemplate = generateTemplate(newTask);
+    tasksList.append(taskTemplate);
     setTasksCounter();
 }
+
 //
 function addNewTask(evt) {
     evt.preventDefault();
@@ -84,6 +84,7 @@ function addNewTask(evt) {
             isChecked: false
         });
 
+    localStorage.setItem("todo", JSON.stringify(todoList));
     renderNewTask();
     clearInput();
 
@@ -97,44 +98,24 @@ function clearInput() {
 addNewTaskForm.addEventListener("submit", addNewTask);
 
 
-// tasks.addEventListener("click", task => {selectTask(task)});
-
-// tasks.forEach(function(task) {
-//     task.addEventListener("click", selectTask)
-// })
-
 // MVC - CONTROLLER
 function selectTask(event) {
     // Is task finished <=> (task.isChecked != task.isChecked);
-    const task = event.target;
-    // По id найти task, изменить isChecked, запустить ререндер шаблона.
+    const taskEl = event.target;
+    let task = todoList[taskEl.id];
 
-    // if (task.tagName === "LI") {
-    //     if (task.classList.contains(TASK_CSS_CLASS.CHECKED)) {
-    //         task.classList.remove(TASK_CSS_CLASS.CHECKED);
-    //     } else {
-    //         task.classList.add(TASK_CSS_CLASS.CHECKED);
-    //     }
-    //     putTick(task.id);
-    //     todoList[task.id].isChecked = !todoList[task.id].isChecked;
-    //     changeCheckboxProp(task);
-    // }
+    task.isChecked = (taskEl.tagName === 'INPUT') ? taskEl.checked : !task.isChecked;
+
+    // По id найти task, изменить isChecked, запустить ререндер шаблона.
+    // task.isChecked = !task.isChecked;
+
+    localStorage.setItem("todo", JSON.stringify(todoList));
+
+    tasksList.innerHTML = '';
+    renderTasks();
 }
 
 tasksList.addEventListener("click", selectTask);
-
-
-
-//------------------------------------------
-// function isCheckboxChecked(task) {
-//     return document.querySelector(`li[id="${task.id}"] input`).checked;
-// }
-
-function changeCheckboxProp(task) {
-
-    const checkbox = document.querySelector(`li[id="${task.id}"] input`);
-    checkbox.checked = task.isChecked;
-}
 
 
 

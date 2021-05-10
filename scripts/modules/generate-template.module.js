@@ -1,4 +1,4 @@
-export const TASK_CSS_CLASS = {
+const TASK_CSS_CLASS = {
     CHECKED: 'checked',
     UNCHECKED: 'unchecked'
 }

@@ -117,10 +117,13 @@ i.fas {
 
 .checked {
     text-decoration: line-through;
+    background-color: darkgrey;
+    opacity: 30%;
 }
 
 .unchecked {
     text-decoration: none;
+    background-color: lightgoldenrodyellow;
 }
 
 .footer {

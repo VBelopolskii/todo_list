@@ -1,4 +1,7 @@
-import {TASKS} from "./tasks.js"
+// import {TASKS} from "./modules/tasks.js"
+import LocalStorageModule from "./modules/local-storage.module.js"
+import {generateTemplate} from "./modules/generate-template.module.js";
+import {rendererModule} from "./modules/renderer.module.js";
 
 const tasksList = document.querySelector('.content__main-list');
 const tasks = document.querySelectorAll('.content__main-list li');
@@ -7,65 +10,32 @@ const inputNewTask = document.getElementById("footer__new-task");
 const addNewTaskForm = document.querySelector(".footer__form");
 
 const TASK_CSS_CLASS = {
-    CHECKED: 'checked'
+    CHECKED: 'checked',
+    UNCHECKED: 'unchecked'
 }
 
 
 // TODO Storage не захотел работать с экспортируемым массивом
 let todoList = [];
 
+function parseStorageValues() {
+    if (LocalStorageModule.get("todo")) {
+        todoList = JSON.parse(LocalStorageModule.get("todo"));
+    }
+}
+
 function init() {
-    if (localStorage.getItem("todo")) {
-        todoList = JSON.parse(localStorage.getItem("todo"));
-    }
-    renderTasks();
-}
+    parseStorageValues();
 
-// MVP --- VIEW
-function generateTemplate(task) {
-    const taskListEl = document.createElement('li');
-    const taskInput = document.createElement('input');
-    const taskLabel = document.createElement('label');
-    taskListEl.innerText = task.name;
-    taskListEl.prepend(taskInput);
-    taskListEl.append(taskLabel);
-    taskInput.type = 'checkbox';
-
-    taskInput.checked = task.isChecked;
-    if (task.isChecked) {
-        taskListEl.className = TASK_CSS_CLASS.CHECKED;
-        taskInput.className = taskListEl.className;
-    }
-
-    taskListEl.id = task.id;
-    taskInput.id = taskListEl.id;
-
-    // Тут генерировать шаблон и его возвращать
-    return taskListEl;
-}
-
-function renderTasks() {
     todoList.forEach(task => {
-        tasksList.append(generateTemplate(task));
+        rendererModule(tasksList, generateTemplate(task));
     });
-    // ...
     setTasksCounter();
-}
 
-function rerenderTask(task) {
-    tasksList.append(generateTemplate(task));
-    setTasksCounter();
 }
 
 function setTasksCounter() {
     counterElement.innerText = todoList.length;
-}
-
-function renderNewTask() {
-    const newTask = todoList[todoList.length - 1];
-    let taskTemplate = generateTemplate(newTask);
-    tasksList.append(taskTemplate);
-    setTasksCounter();
 }
 
 //
@@ -84,8 +54,11 @@ function addNewTask(evt) {
             isChecked: false
         });
 
-    localStorage.setItem("todo", JSON.stringify(todoList));
-    renderNewTask();
+    LocalStorageModule.set("todo", todoList);
+
+    let newTask = todoList[todoList.length - 1];
+    rendererModule(tasksList, generateTemplate(newTask));
+
     clearInput();
 
 }
@@ -109,14 +82,19 @@ function selectTask(event) {
     // По id найти task, изменить isChecked, запустить ререндер шаблона.
     // task.isChecked = !task.isChecked;
 
-    localStorage.setItem("todo", JSON.stringify(todoList));
+    LocalStorageModule.set("todo", todoList);
 
     tasksList.innerHTML = '';
-    renderTasks();
+
+    // renderTasks();
+
+    todoList.forEach(task => {
+        rendererModule(tasksList, generateTemplate(task));
+    });
+    setTasksCounter();
 }
 
 tasksList.addEventListener("click", selectTask);
-
 
 
 //--------------------------------------------

@@ -1,23 +1,18 @@
-import LocalStorageModule from "./modules/local-storage.module.js"
-import {generateTemplate} from "./modules/generate-template.module.js";
-import {rendererModule} from "./modules/renderer.module.js";
-import {addNewTask, selectTask, setTasksCounter, tasks, tasksList} from "./modules/tasks.js";
+import LocalStorageService from "./services/local-storage.service.js"
+import {generateTemplate} from "./components/Task/generate-template.component.js";
+import {renderer} from "./components/Task/renderer.js";
+import {addNewTask, selectTask, setTasksCounter, tasks, tasksList} from "./components/Task/tasks.js";
 
 const addNewTaskForm = document.querySelector(".footer__form");
 
 let todoList = [];
 
-function parseStorageValues() {
-    if (LocalStorageModule.get("todo")) {
-        todoList = JSON.parse(LocalStorageModule.get("todo"));
-    }
-}
-
 function init() {
-    parseStorageValues();
+
+    todoList = LocalStorageService.parseStorageValues("todo");
 
     todoList.forEach(task => {
-        rendererModule(tasksList, generateTemplate(task));
+        renderer(tasksList, generateTemplate(task));
     });
     setTasksCounter(todoList);
 

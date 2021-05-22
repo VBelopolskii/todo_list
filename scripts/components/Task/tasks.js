@@ -1,6 +1,6 @@
-import LocalStorageModule from "./local-storage.module.js";
-import {rendererModule} from "./renderer.module.js";
-import {generateTemplate} from "./generate-template.module.js";
+import LocalStorageService from "../../services/local-storage.service.js";
+import {renderer} from "./renderer.js";
+import {generateTemplate} from "./generate-template.component.js";
 
 let tasks = [];
 
@@ -24,10 +24,10 @@ function addNewTask(evt, array) {
             isChecked: false
         });
 
-    LocalStorageModule.set("todo", array);
+    LocalStorageService.set("todo", array);
 
     let newTask = array[array.length - 1];
-    rendererModule(tasksList, generateTemplate(newTask));
+    renderer(tasksList, generateTemplate(newTask));
 
     clearInput();
 
@@ -43,12 +43,12 @@ function selectTask(event, array) {
 
     task.isChecked = (taskEl.tagName === 'INPUT') ? taskEl.checked : !task.isChecked;
 
-    LocalStorageModule.set("todo", array);
+    LocalStorageService.set("todo", array);
 
     tasksList.innerHTML = '';
 
     array.forEach(task => {
-        rendererModule(tasksList, generateTemplate(task));
+        renderer(tasksList, generateTemplate(task));
     });
     setTasksCounter(array);
 }

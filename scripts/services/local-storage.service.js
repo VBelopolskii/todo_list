@@ -1,4 +1,4 @@
-export default class LocalStorageModule {
+export default class LocalStorageService {
     constructor() {
     }
 
@@ -10,9 +10,9 @@ export default class LocalStorageModule {
         return localStorage.setItem(key, JSON.stringify(array))
     }
 
-    static parseStorageValues(key, array) {
-        if (LocalStorageModule.get(key)) {
-            return array = JSON.parse(LocalStorageModule.get(key));
+    static parseStorageValues(key) {
+        if (LocalStorageService.get(key)) {
+            return JSON.parse(LocalStorageService.get(key));
         }
     }
 }

@@ -109,11 +109,21 @@ i.fas {
     font-weight: bold;
 }
 .content__main {
-    overflow: scroll;
+    overflow: auto;
 }
 .content__main-list {
-    overflow: scroll;
-    height: 100%;
+    overflow: auto;
+}
+
+.checked {
+    text-decoration: line-through;
+    background-color: darkgrey;
+    opacity: 30%;
+}
+
+.unchecked {
+    text-decoration: none;
+    background-color: lightgoldenrodyellow;
 }
 
 .footer {

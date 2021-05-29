@@ -1,5 +1,5 @@
 import LocalStorageService from "../../services/local-storage.service.js";
-import {renderer} from "./renderer.js";
+import {renderer} from "../../utils/renderer.js";
 import {generateTemplate} from "./generate-template.component.js";
 
 let tasks = [];
